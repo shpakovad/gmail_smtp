@@ -22,6 +22,10 @@ let transporter = nodemailer.createTransport({
     },
 });
 
+app.get("/" ,function(req,res){
+    res.send("Hello!")
+})
+
 app.post('/sendMessage', async function (req, res) {
 
     let {message,contacts,name} = req.body
