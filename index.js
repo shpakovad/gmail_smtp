@@ -8,14 +8,17 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
+let smtp_login = process.env.SMTP_LOGIN || "---"
+let smtp_password = process.env.SMTP_PASSWORD || "---"
+
 let transporter = nodemailer.createTransport({
     service:"gmail",
     // host: "smtp.ethereal.email",
     // port: 587,
     // secure: false, // true for 465, false for other ports
     auth: {
-        user: "shpakovad@gmail.com", // generated ethereal user
-        pass: "80291332819", // generated ethereal password
+        user: smtp_login , // generated ethereal user
+        pass: smtp_password, // generated ethereal password
     },
 });
 
@@ -38,6 +41,7 @@ app.post('/sendMessage', async function (req, res) {
     res.send('Ok');
 });
 
-app.listen(3010, function () {
+let port = process.env.PORT || 3010
+app.listen(port, function () {
     console.log('Example app listening on port 3010!');
 });
